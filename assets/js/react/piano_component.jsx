@@ -2,58 +2,60 @@
 
 
 
-// ----- Log and log item components
-var LogItem = React.createClass({
-	render: function(){
-		return (
-			<div className="item">
-				{this.props.text}
-			</div>
-		);
-	}
-});
+// ----- top level app component
+var App_Component = React.createClass({
+	getInitialState: function(){
+		return {
+			keyLog: [],
+		};
+	},
 
-var KeyLog = React.createClass({
+	keyPressed: function(e){
+		this.addToLog( $(e.target).text() );
+	},
+
+	addToLog: function(key){
+		console.log(this.state.keyLog);
+		this.state.keyLog.push(key);
+		this.setState({keyLog: this.state.keyLog});
+	},
+
+	autoplay: function(string_of_keys){
+		console.log( 'in autoplay function' );
+		var elem;
+
+		for( var a = 0; a < string_of_keys.length; a++ ){
+			elem = $('.'+string_of_keys[a]+'-key');
+			this.play( elem );
+			elem.css('text-decoration', 'none');
+		}
+	},
+
+	play: function(elem){
+		setTimeout(function(){
+			console.log(elem);
+			elem.css('text-decoration', 'underline');
+		}, 1000);
+
+		console.log('do i get here');
+		elem.css('text-decoration', 'none');
+	},
+
 	render: function(){
 		return (
-			<div className="log">
-				<h3>Key Log</h3>
-				{
-					this.props.keys.length > 0 ?
-					this.props.keys.map(function(val, index, arr){
-						return <LogItem key={index} text={val} />
-					}) :
-					null
-				}
+			<div className="app-container">
+				<Piano click={this.keyPressed} />
+				<KeyLog keys={this.state.keyLog} />
+				<Autoplay autoplay={this.autoplay} />
 			</div>
 		);
 	}
 });
-// ----- Log and log item components
+// ----- top level app component
 
 
 
 // ----- Piano and piano key components
-var White_Key = React.createClass({
-	render: function(){
-		return (
-			<div className={this.props.css} onClick={this.props.click}>
-				{this.props.text}
-			</div>
-		);
-	}
-});
-
-var Black_Key = React.createClass({
-	render: function(){
-		return (
-			<div className={this.props.css}>
-
-			</div>
-		);
-	}
-});
-
 var Piano = React.createClass({
 	render: function(){
 		return (
@@ -74,40 +76,116 @@ var Piano = React.createClass({
 		);
 	}
 });
-// ----- Piano and piano key components
 
-
-
-// ----- top level app component
-var App_Component = React.createClass({
-	getInitialState: function(){
-		return {
-			keyLog: [],
-		};
-	},
-
-	keyPressed: function(e){
-		this.addToLog( $(e.target).text() );
-	},
-
-	addToLog: function(key){
-		console.log(this.state.keyLog);
-		this.state.keyLog.push(key);
-		this.setState({keyLog: this.state.keyLog});
-	},
-
-	autoplay: function(){
-
-	},
-
+var White_Key = React.createClass({
 	render: function(){
 		return (
-			<div className="app-container">
-				<Piano click={this.keyPressed} />
-				<KeyLog keys={this.state.keyLog} />
+			<div className={this.props.css} onClick={this.props.click}>
+				{this.props.text}
 			</div>
 		);
 	}
 });
+
+var Black_Key = React.createClass({
+	render: function(){
+		return (
+			<div className={this.props.css}>
+
+			</div>
+		);
+	}
+});
+// ----- Piano and piano key components
+
+
+
+// ----- Log and log item components
+var KeyLog = React.createClass({
+	render: function(){
+		return (
+			<div className="log">
+				<h3>Key Log</h3>
+				{
+					this.props.keys.length > 0 ?
+					this.props.keys.map(function(val, index, arr){
+						return <LogItem key={index} text={val} />
+					}) :
+					null
+				}
+			</div>
+		);
+	}
+});
+
+var LogItem = React.createClass({
+	render: function(){
+		return (
+			<div className="item">
+				{this.props.text}
+			</div>
+		);
+	}
+});
+// ----- Log and log item components
+
+
+
+// ----- Autoplay component
+var Autoplay = React.createClass({
+	play: function(e){
+		var val, is_valid;
+
+		e.preventDefault();
+
+		val = $('.key-input').val();
+		is_valid = this.validate( val );
+
+		if( is_valid ){
+			val = val.split(',');
+			this.props.autoplay( val );
+		}
+	},
+
+	validate: function(submitted){
+		var valid_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g'], 
+			match = false, valid = true;
+
+		submitted = submitted.split(',');
+
+		for( var i = 0; i < submitted.length; i++ ){
+			if( submitted[i].length > 1 || submitted[i].length === 0 ){
+				return false;
+			}else{
+				for( var k = 0; k < valid_chars.length; k++ ){
+					if( valid_chars[k] === submitted[i] ){
+						match = true;
+						break;
+					}
+				}
+
+				if( !match ){
+					return false;
+				}
+			}
+		}
+
+		return valid;
+	},
+
+	render: function(){
+		return (
+			<div className="autoplay">
+				<form onSubmit={this.play}>
+					<input type="text" className="key-input" placeholder="Enter keys to play" />
+					<div className="" onClick={this.play}>Play</div>
+				</form>
+			</div>
+		);
+	}
+});
+// ----- Autoplay component
+
+
 
 ReactDOM.render( <App_Component />, document.getElementById('main-container') );
