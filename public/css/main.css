@@ -5817,3 +5817,29 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+body {
+  background: #eee; }
+
+.piano, .piano:before, .piano:after {
+  clear: both;
+  display: table;
+  margin: 0 auto;
+  border: thin solid blue; }
+
+.key {
+  float: left;
+  border: thin solid red;
+  width: 50px;
+  height: 200px;
+  font-size: 30px;
+  font-weight: 600;
+  padding: 150px 0 0;
+  background-color: #fff; }
+
+.black-key {
+  background-color: #eee;
+  width: 50px;
+  height: 125px;
+  position: absolute;
+  top: 0; }
