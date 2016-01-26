@@ -5827,19 +5827,34 @@ body {
   margin: 0 auto;
   border: thin solid blue; }
 
-.key {
-  float: left;
-  border: thin solid red;
-  width: 50px;
-  height: 200px;
-  font-size: 30px;
-  font-weight: 600;
-  padding: 150px 0 0;
-  background-color: #fff; }
+.piano {
+  position: relative; }
+  .piano .key {
+    float: left;
+    border: thin solid red;
+    width: 50px;
+    height: 200px;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 150px 0 0;
+    background-color: #fff;
+    cursor: pointer; }
+  .piano .black-keys {
+    background-color: #202020;
+    width: 34px;
+    height: 125px;
+    position: absolute;
+    top: 0; }
+    .piano .black-keys.cd-key {
+      left: 32px; }
+    .piano .black-keys.de-key {
+      left: 82px; }
+    .piano .black-keys.fg-key {
+      left: 182px; }
+    .piano .black-keys.ga-key {
+      left: 232px; }
+    .piano .black-keys.ab-key {
+      left: 282px; }
 
-.black-key {
-  background-color: #eee;
-  width: 50px;
-  height: 125px;
-  position: absolute;
-  top: 0; }
+.log {
+  border: thin solid green; }

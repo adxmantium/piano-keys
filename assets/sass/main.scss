@@ -1,6 +1,8 @@
 /* main.scss */
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+$blackkeyColor: #202020;
+
 body{
 	background: #eee;
 }
@@ -12,21 +14,51 @@ body{
 	border: thin solid blue;
 }
 
-.key{
-	float: left;
-	border: thin solid red;
-	width: 50px;
-	height: 200px;
-	font-size: 30px;
-	font-weight: 600;
-	padding: 150px 0 0;
-	background-color: #fff;
+.piano{
+	position: relative;
+
+	.key{
+		float: left;
+		border: thin solid red;
+		width: 50px;
+		height: 200px;
+		font-size: 30px;
+		font-weight: 600;
+		padding: 150px 0 0;
+		background-color: #fff;
+		cursor: pointer;
+	}
+
+	.black-keys{
+		background-color: $blackkeyColor;
+		width: 34px;
+		height: 125px;
+		position: absolute;
+		top: 0;
+
+		&.cd-key{
+			left: 32px;
+		}
+
+		&.de-key{
+			left: 82px;
+		}
+
+		&.fg-key{
+			left: 182px;
+		}
+
+		&.ga-key{
+			left: 232px;
+		}
+
+		&.ab-key{
+			left: 282px;
+		}
+	}
 }
 
-.black-key{
-	background-color: #eee;
-	width: 50px;
-	height: 125px;
-	position: absolute;
-	top: 0;
+.log{
+	border: thin solid green;
 }
+
