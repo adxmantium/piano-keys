@@ -1,0 +1,20 @@
+{
+  "name": "piano-keys",
+  "version": "1.0.0",
+  "description": "A web app of a representation of piano keys",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajadams/piano-keys.git"
+  },
+  "author": "adam adams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajadams/piano-keys/issues"
+  },
+  "homepage": "https://github.com/ajadams/piano-keys#readme"
+}
