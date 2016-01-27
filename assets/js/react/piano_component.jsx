@@ -61,6 +61,7 @@ var App_Component = React.createClass({
 			if( i < string_of_keys.length ){
 				elem = $('.'+string_of_keys[i]+'-key');
 				elem.addClass('active');
+				_this.keyPressed( string_of_keys[i].toUpperCase() );
 				i++;
 			}else{
 				clearInterval(loop);
@@ -83,7 +84,7 @@ var App_Component = React.createClass({
 
 				<h1 className="text-center">Piano<small>Keys</small></h1>
 
-				<Piano click={this.keyPressed} />
+				<Piano keyPressed={this.keyPressed} />
 
 				<div className="container-fluid">
 					<div className="row">
@@ -114,13 +115,13 @@ var Piano = React.createClass({
 	render: function(){
 		return (
 			<div className="piano">
-				<White_Key css={'key c-key text-center'} text={'C'} click={this.props.click} />
-				<White_Key css={'key d-key text-center'} text={'D'} click={this.props.click} />
-				<White_Key css={'key e-key text-center'} text={'E'} click={this.props.click} />
-				<White_Key css={'key f-key text-center'} text={'F'} click={this.props.click} />
-				<White_Key css={'key g-key text-center'} text={'G'} click={this.props.click} />
-				<White_Key css={'key a-key text-center'} text={'A'} click={this.props.click} />
-				<White_Key css={'key b-key text-center'} text={'B'} click={this.props.click} />
+				<White_Key css={'key c-key text-center'} text={'C'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key d-key text-center'} text={'D'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key e-key text-center'} text={'E'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key f-key text-center'} text={'F'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key g-key text-center'} text={'G'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key a-key text-center'} text={'A'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key b-key text-center'} text={'B'} keyPressed={this.props.keyPressed} />
 				<Black_Key css={'black-keys cd-key'} />
 				<Black_Key css={'black-keys de-key'} />
 				<Black_Key css={'black-keys fg-key'} />
@@ -133,9 +134,7 @@ var Piano = React.createClass({
 
 var White_Key = React.createClass({
 	setActive: function(e){
-		var elem = $(e.target);
-		elem.addClass('active');
-		this.props.click(elem.text());
+		this.props.keyPressed( $(e.target).text() );
 	},
 
 	render: function(){

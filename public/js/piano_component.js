@@ -61,6 +61,7 @@ var App_Component = React.createClass({displayName: "App_Component",
 			if( i < string_of_keys.length ){
 				elem = $('.'+string_of_keys[i]+'-key');
 				elem.addClass('active');
+				_this.keyPressed( string_of_keys[i].toUpperCase() );
 				i++;
 			}else{
 				clearInterval(loop);
@@ -83,7 +84,7 @@ var App_Component = React.createClass({displayName: "App_Component",
 
 				React.createElement("h1", {className: "text-center"}, "Piano", React.createElement("small", null, "Keys")), 
 
-				React.createElement(Piano, {click: this.keyPressed}), 
+				React.createElement(Piano, {keyPressed: this.keyPressed}), 
 
 				React.createElement("div", {className: "container-fluid"}, 
 					React.createElement("div", {className: "row"}, 
@@ -114,13 +115,13 @@ var Piano = React.createClass({displayName: "Piano",
 	render: function(){
 		return (
 			React.createElement("div", {className: "piano"}, 
-				React.createElement(White_Key, {css: 'key c-key text-center', text: 'C', click: this.props.click}), 
-				React.createElement(White_Key, {css: 'key d-key text-center', text: 'D', click: this.props.click}), 
-				React.createElement(White_Key, {css: 'key e-key text-center', text: 'E', click: this.props.click}), 
-				React.createElement(White_Key, {css: 'key f-key text-center', text: 'F', click: this.props.click}), 
-				React.createElement(White_Key, {css: 'key g-key text-center', text: 'G', click: this.props.click}), 
-				React.createElement(White_Key, {css: 'key a-key text-center', text: 'A', click: this.props.click}), 
-				React.createElement(White_Key, {css: 'key b-key text-center', text: 'B', click: this.props.click}), 
+				React.createElement(White_Key, {css: 'key c-key text-center', text: 'C', keyPressed: this.props.keyPressed}), 
+				React.createElement(White_Key, {css: 'key d-key text-center', text: 'D', keyPressed: this.props.keyPressed}), 
+				React.createElement(White_Key, {css: 'key e-key text-center', text: 'E', keyPressed: this.props.keyPressed}), 
+				React.createElement(White_Key, {css: 'key f-key text-center', text: 'F', keyPressed: this.props.keyPressed}), 
+				React.createElement(White_Key, {css: 'key g-key text-center', text: 'G', keyPressed: this.props.keyPressed}), 
+				React.createElement(White_Key, {css: 'key a-key text-center', text: 'A', keyPressed: this.props.keyPressed}), 
+				React.createElement(White_Key, {css: 'key b-key text-center', text: 'B', keyPressed: this.props.keyPressed}), 
 				React.createElement(Black_Key, {css: 'black-keys cd-key'}), 
 				React.createElement(Black_Key, {css: 'black-keys de-key'}), 
 				React.createElement(Black_Key, {css: 'black-keys fg-key'}), 
@@ -133,9 +134,7 @@ var Piano = React.createClass({displayName: "Piano",
 
 var White_Key = React.createClass({displayName: "White_Key",
 	setActive: function(e){
-		var elem = $(e.target);
-		elem.addClass('active');
-		this.props.click(elem.text());
+		this.props.keyPressed( $(e.target).text() );
 	},
 
 	render: function(){

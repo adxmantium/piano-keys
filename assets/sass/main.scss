@@ -61,19 +61,19 @@ body{
 		}
 
 		&.de-key{
-			left: 82px;
+			left: 84px;
 		}
 
 		&.fg-key{
-			left: 182px;
+			left: 186px;
 		}
 
 		&.ga-key{
-			left: 232px;
+			left: 237px;
 		}
 
 		&.ab-key{
-			left: 282px;
+			left: 287px;
 		}
 	}
 }
@@ -87,39 +87,11 @@ body{
 	.item{
 		background: #fff;
 		width: 80px;
-		border-left: 4px solid black;
+		border-left: 4px solid $blackkeyColor;
 		margin: 0 0 5px 0;
 		box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.4);
 		padding: 0 0 0 12px;
 		border-radius: 0 1px 1px 0;
-
-		&.c-color{
-			border-left: 4px solid red;
-		}
-
-		&.d-color{
-			border-left: 4px solid blue;
-		}
-
-		&.e-color{
-			border-left: 4px solid green;
-		}
-
-		&.f-color{
-			border-left: 4px solid gray;
-		}
-
-		&.g-color{
-			border-left: 4px solid yellow;
-		}
-
-		&.a-color{
-			border-left: 4px solid orange;
-		}
-
-		&.b-color{
-			border-left: 4px solid purple;
-		}
 	}
 }
 

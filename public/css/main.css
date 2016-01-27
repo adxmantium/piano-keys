@@ -5860,13 +5860,13 @@ body {
     .piano .black-keys.cd-key {
       left: 32px; }
     .piano .black-keys.de-key {
-      left: 82px; }
+      left: 84px; }
     .piano .black-keys.fg-key {
-      left: 182px; }
+      left: 186px; }
     .piano .black-keys.ga-key {
-      left: 232px; }
+      left: 237px; }
     .piano .black-keys.ab-key {
-      left: 282px; }
+      left: 287px; }
 
 .log h4 {
   padding: 0 0 5px 0;
@@ -5875,25 +5875,11 @@ body {
 .log .item {
   background: #fff;
   width: 80px;
-  border-left: 4px solid black;
+  border-left: 4px solid #262626;
   margin: 0 0 5px 0;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
   padding: 0 0 0 12px;
   border-radius: 0 1px 1px 0; }
-  .log .item.c-color {
-    border-left: 4px solid red; }
-  .log .item.d-color {
-    border-left: 4px solid blue; }
-  .log .item.e-color {
-    border-left: 4px solid green; }
-  .log .item.f-color {
-    border-left: 4px solid gray; }
-  .log .item.g-color {
-    border-left: 4px solid yellow; }
-  .log .item.a-color {
-    border-left: 4px solid orange; }
-  .log .item.b-color {
-    border-left: 4px solid purple; }
 
 .autoplay h4 {
   padding: 0 0 5px 0;
