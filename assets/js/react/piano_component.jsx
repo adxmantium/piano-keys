@@ -2,6 +2,33 @@
 
 
 
+var pianokeys = pianokeys || {};
+
+pianokeys = (function(){
+
+	var save_state, get_state, clear_state;
+
+	save_state = function(key, val){
+		localStorage.setItem(key, JSON.stringify(val));
+	};
+
+	get_state = function(key){
+		var val = localStorage.getItem(key);
+		return value && JSON.parse(value);
+	};
+
+	clear_state = function(){
+		localStorage.clear();
+	};
+
+	return {
+		save: save_state,
+		get: get_state
+	};
+})();
+
+
+
 // ----- top level app component
 var App_Component = React.createClass({
 	getInitialState: function(){
@@ -21,26 +48,33 @@ var App_Component = React.createClass({
 	},
 
 	autoplay: function(string_of_keys){
-		console.log( 'in autoplay function' );
-		var elem;
+		var active_elem, loop, i = 0, _this = this;
 
-		for( var a = 0; a < string_of_keys.length; a++ ){
-			elem = $('.'+string_of_keys[a]+'-key');
-			// this.play( elem );
-			elem.addClass('active').delay(1000).queue(function(){
-				elem.removeClass('active').dequeue();
-			});
-		}
+		loop = setInterval(function(){
+			//if there are any active keys, remove active class
+			active_elem = $('.key.active');
+			if( active_elem.length > 0 ){
+				active_elem.removeClass('active');
+			}
+
+			//make key active if there are still keys to play, otherwise clear interval/loop
+			if( i < string_of_keys.length ){
+				elem = $('.'+string_of_keys[i]+'-key');
+				elem.addClass('active');
+				i++;
+			}else{
+				clearInterval(loop);
+				_this.donePlaying();
+				if( active_elem.length > 0 ){
+					active_elem.removeClass('active');
+				}
+			}
+		}, 1000);
 	},
 
-	play: function(elem){
-		setTimeout(function(){
-			console.log(elem);
-			elem.css('text-decoration', 'underline');
-		}, 1000);
-
-		console.log('do i get here');
-		elem.css('text-decoration', 'none');
+	donePlaying: function(){
+		$('.key-input').prop('disabled', false)
+		$('.now-playing').hide();
 	},
 
 	render: function(){
@@ -164,21 +198,30 @@ var Autoplay = React.createClass({
 		is_valid = this.validate( val );
 
 		if( is_valid ){
+			$('.key-input').val('').prop('disabled', true);
+			$('.now-playing').show();
 			val = val.split(',');
 			this.props.autoplay( val );
 		}
 	},
 
-	validate: function(submitted){
+	validate: function(val){
 		var valid_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g'], 
-			match = false, valid = true;
+			match = false, valid = true, submitted;
 
-		submitted = submitted.split(',');
+		submitted = val.split(',');
 
+		//loop through each index of the submitted string
 		for( var i = 0; i < submitted.length; i++ ){
+
+			//check length of each index
 			if( submitted[i].length > 1 || submitted[i].length === 0 ){
-				return false;
+				$('.input-group').addClass('has-error').closest('form').find('.error-msg').show();
+				valid = false;
+				break;
 			}else{
+				//reset match to false for the next letter to be checked
+				match = false;
 				for( var k = 0; k < valid_chars.length; k++ ){
 					if( valid_chars[k] === submitted[i] ){
 						match = true;
@@ -186,24 +229,36 @@ var Autoplay = React.createClass({
 					}
 				}
 
+				//if current letter doesn't match valid chars then break and show error
 				if( !match ){
-					return false;
+					$('.input-group').addClass('has-error').closest('form').find('.error-msg').show();
+					valid = false;
+					break;
 				}
 			}
+		}
+
+		//removing error styling when valid, if any were applied before
+		if( valid ){
+			$('.input-group').removeClass('has-error').closest('form').find('.error-msg').hide();
 		}
 
 		return valid;
 	},
 
 	render: function(){
+		var directions = 'enter a string of valid piano keys, delimited by a comma, and we will play that string for you.';
 		return (
 			<div className="autoplay">
 				<h4>Autoplay</h4>
 				<form onSubmit={this.play} className="form-inline">
+				<label>Directions: <small>{directions}</small></label>
 					<div className="input-group">
 						<input type="text" className="key-input form-control" placeholder="Enter keys to play" />
 						<div className="play-btn input-group-addon" onClick={this.play}>Play</div>
 					</div>
+					<div className="error-msg"><small>Invalid input. Ex: a,b,c,d</small></div>
+					<div className="now-playing"><small>Now playing...</small></div>
 				</form>
 			</div>
 		);

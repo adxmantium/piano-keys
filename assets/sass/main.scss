@@ -2,6 +2,8 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 $blackkeyColor: #262626;
+$border: #bfbfbf;
+$error: #a94442;
 
 body{
 	background: #eee;
@@ -35,7 +37,7 @@ body{
 		margin: 0 1px 0 0;
 		border-radius: 0 0 3px 3px;
 
-		&:active{
+		&:active, &.active{
 			box-shadow: inset 0px -5px 6px 2px rgba(0,0,0,0.3);
 			transition: all 1s linear;
 		}
@@ -79,7 +81,7 @@ body{
 .log{
 	h4{
 		padding: 0 0 5px 0;
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid $border;
 	}
 
 	.item{
@@ -124,13 +126,22 @@ body{
 .autoplay{
 	h4{
 		padding: 0 0 5px 0;
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid $border;
 	}
 
 	.play-btn.input-group-addon{
 		cursor: pointer;
 		background: $blackkeyColor;
 		color: #fff;
+	}
+
+	.error-msg{
+		color: $error;
+		display: none;
+	}
+
+	.now-playing{
+		display: none;
 	}
 }
 

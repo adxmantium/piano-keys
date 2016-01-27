@@ -5844,7 +5844,7 @@ body {
     box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.5);
     margin: 0 1px 0 0;
     border-radius: 0 0 3px 3px; }
-    .piano .key:active {
+    .piano .key:active, .piano .key.active {
       box-shadow: inset 0px -5px 6px 2px rgba(0, 0, 0, 0.3);
       transition: all 1s linear; }
   .piano .black-keys {
@@ -5870,7 +5870,7 @@ body {
 
 .log h4 {
   padding: 0 0 5px 0;
-  border-bottom: 1px solid #ddd; }
+  border-bottom: 1px solid #bfbfbf; }
 
 .log .item {
   background: #fff;
@@ -5897,12 +5897,19 @@ body {
 
 .autoplay h4 {
   padding: 0 0 5px 0;
-  border-bottom: 1px solid #ddd; }
+  border-bottom: 1px solid #bfbfbf; }
 
 .autoplay .play-btn.input-group-addon {
   cursor: pointer;
   background: #262626;
   color: #fff; }
+
+.autoplay .error-msg {
+  color: #a94442;
+  display: none; }
+
+.autoplay .now-playing {
+  display: none; }
 
 .container-fluid .col-xs-10:last-child {
   margin-top: 20px; }
