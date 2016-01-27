@@ -10,8 +10,8 @@ var App_Component = React.createClass({displayName: "App_Component",
 		};
 	},
 
-	keyPressed: function(e){
-		this.addToLog( $(e.target).text() );
+	keyPressed: function(key){
+		this.addToLog(key);
 	},
 
 	addToLog: function(key){
@@ -26,8 +26,10 @@ var App_Component = React.createClass({displayName: "App_Component",
 
 		for( var a = 0; a < string_of_keys.length; a++ ){
 			elem = $('.'+string_of_keys[a]+'-key');
-			this.play( elem );
-			elem.css('text-decoration', 'none');
+			// this.play( elem );
+			elem.addClass('active').delay(1000).queue(function(){
+				elem.removeClass('active').dequeue();
+			});
 		}
 	},
 
@@ -44,6 +46,7 @@ var App_Component = React.createClass({displayName: "App_Component",
 	render: function(){
 		return (
 			React.createElement("div", {className: "app-container"}, 
+				React.createElement("h1", {className: "text-center"}, "Piano", React.createElement("small", null, "Keys")), 
 				React.createElement(Piano, {click: this.keyPressed}), 
 				React.createElement(KeyLog, {keys: this.state.keyLog}), 
 				React.createElement(Autoplay, {autoplay: this.autoplay})
@@ -78,9 +81,15 @@ var Piano = React.createClass({displayName: "Piano",
 });
 
 var White_Key = React.createClass({displayName: "White_Key",
+	setActive: function(e){
+		var elem = $(e.target);
+		elem.addClass('active');
+		this.props.click(elem.text());
+	},
+
 	render: function(){
 		return (
-			React.createElement("div", {className: this.props.css, onClick: this.props.click}, 
+			React.createElement("div", {className: this.props.css, onClick: this.setActive}, 
 				this.props.text
 			)
 		);

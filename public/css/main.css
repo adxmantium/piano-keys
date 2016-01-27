@@ -5824,27 +5824,35 @@ body {
 .piano, .piano:before, .piano:after {
   clear: both;
   display: table;
-  margin: 0 auto;
-  border: thin solid blue; }
+  margin: 0 auto 20px; }
 
 .piano {
   position: relative; }
   .piano .key {
     float: left;
-    border: thin solid red;
     width: 50px;
     height: 200px;
     font-size: 30px;
     font-weight: 600;
     padding: 150px 0 0;
     background-color: #fff;
-    cursor: pointer; }
+    cursor: pointer;
+    box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.5);
+    margin: 0 1px 0 0;
+    border-radius: 0 0 3px 3px; }
+    .piano .key:active {
+      box-shadow: inset 0px -5px 6px 2px rgba(0, 0, 0, 0.3);
+      transition: all 1s linear; }
   .piano .black-keys {
-    background-color: #202020;
+    background-color: #262626;
     width: 34px;
     height: 125px;
     position: absolute;
-    top: 0; }
+    top: 0;
+    border-radius: 0 0 3px 3px;
+    box-shadow: inset 0px -8px 1px 9px black; }
+    .piano .black-keys:active {
+      box-shadow: inset 0px -5px 1px 5px black; }
     .piano .black-keys.cd-key {
       left: 32px; }
     .piano .black-keys.de-key {
