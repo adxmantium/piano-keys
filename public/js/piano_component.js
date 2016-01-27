@@ -63,7 +63,9 @@ var App_Component = React.createClass({displayName: "App_Component",
 
 						React.createElement("div", {className: "clearfix"})
 					)
-				)
+				), 
+
+				React.createElement("div", {className: "text-center copyright"}, React.createElement("small", null,  String.fromCharCode(169) + ' 2016 Adam Adams'))
 
 			)
 		);

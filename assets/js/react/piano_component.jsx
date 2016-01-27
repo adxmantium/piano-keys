@@ -65,6 +65,8 @@ var App_Component = React.createClass({
 					</div>
 				</div>
 
+				<div className="text-center copyright"><small>{ String.fromCharCode(169) + ' 2016 Adam Adams' }</small></div>
+
 			</div>
 		);
 	}
