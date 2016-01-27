@@ -46,10 +46,25 @@ var App_Component = React.createClass({displayName: "App_Component",
 	render: function(){
 		return (
 			React.createElement("div", {className: "app-container"}, 
+
 				React.createElement("h1", {className: "text-center"}, "Piano", React.createElement("small", null, "Keys")), 
+
 				React.createElement(Piano, {click: this.keyPressed}), 
-				React.createElement(KeyLog, {keys: this.state.keyLog}), 
-				React.createElement(Autoplay, {autoplay: this.autoplay})
+
+				React.createElement("div", {className: "container-fluid"}, 
+					React.createElement("div", {className: "row"}, 
+						React.createElement("div", {className: "col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-2 col-md-4 col-lg-3 col-lg-offset-3"}, 
+							React.createElement(Autoplay, {autoplay: this.autoplay})
+						), 
+
+						React.createElement("div", {className: "col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0 col-md-4 col-lg-3"}, 
+							React.createElement(KeyLog, {keys: this.state.keyLog})
+						), 
+
+						React.createElement("div", {className: "clearfix"})
+					)
+				)
+
 			)
 		);
 	}
@@ -98,11 +113,7 @@ var White_Key = React.createClass({displayName: "White_Key",
 
 var Black_Key = React.createClass({displayName: "Black_Key",
 	render: function(){
-		return (
-			React.createElement("div", {className: this.props.css}
-
-			)
-		);
+		return React.createElement("div", {className: this.props.css});
 	}
 });
 // ----- Piano and piano key components
@@ -114,13 +125,13 @@ var KeyLog = React.createClass({displayName: "KeyLog",
 	render: function(){
 		return (
 			React.createElement("div", {className: "log"}, 
-				React.createElement("h3", null, "Key Log"), 
+				React.createElement("h4", null, "Key Log (", this.props.keys.length, ")"), 
 				
 					this.props.keys.length > 0 ?
 					this.props.keys.map(function(val, index, arr){
-						return React.createElement(LogItem, {key: index, text: val})
+						return React.createElement(LogItem, {key: index, text: val, css: val+'-color item'})
 					}) :
-					null
+					React.createElement("div", null, React.createElement("small", null, "Nothing to log"))
 				
 			)
 		);
@@ -130,7 +141,7 @@ var KeyLog = React.createClass({displayName: "KeyLog",
 var LogItem = React.createClass({displayName: "LogItem",
 	render: function(){
 		return (
-			React.createElement("div", {className: "item"}, 
+			React.createElement("div", {className: this.props.css}, 
 				this.props.text
 			)
 		);
@@ -185,9 +196,12 @@ var Autoplay = React.createClass({displayName: "Autoplay",
 	render: function(){
 		return (
 			React.createElement("div", {className: "autoplay"}, 
-				React.createElement("form", {onSubmit: this.play}, 
-					React.createElement("input", {type: "text", className: "key-input", placeholder: "Enter keys to play"}), 
-					React.createElement("div", {className: "", onClick: this.play}, "Play")
+				React.createElement("h4", null, "Autoplay"), 
+				React.createElement("form", {onSubmit: this.play, className: "form-inline"}, 
+					React.createElement("div", {className: "input-group"}, 
+						React.createElement("input", {type: "text", className: "key-input form-control", placeholder: "Enter keys to play"}), 
+						React.createElement("div", {className: "play-btn input-group-addon", onClick: this.play}, "Play")
+					)
 				)
 			)
 		);

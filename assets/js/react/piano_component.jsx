@@ -46,10 +46,25 @@ var App_Component = React.createClass({
 	render: function(){
 		return (
 			<div className="app-container">
+
 				<h1 className="text-center">Piano<small>Keys</small></h1>
+
 				<Piano click={this.keyPressed} />
-				<KeyLog keys={this.state.keyLog} />
-				<Autoplay autoplay={this.autoplay} />
+
+				<div className="container-fluid">
+					<div className="row">
+						<div className="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-2 col-md-4 col-lg-3 col-lg-offset-3">
+							<Autoplay autoplay={this.autoplay} />
+						</div>
+
+						<div className="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0 col-md-4 col-lg-3">
+							<KeyLog keys={this.state.keyLog} />
+						</div>
+
+						<div className="clearfix"></div>
+					</div>
+				</div>
+
 			</div>
 		);
 	}
@@ -98,11 +113,7 @@ var White_Key = React.createClass({
 
 var Black_Key = React.createClass({
 	render: function(){
-		return (
-			<div className={this.props.css}>
-
-			</div>
-		);
+		return <div className={this.props.css}></div>;
 	}
 });
 // ----- Piano and piano key components
@@ -114,13 +125,13 @@ var KeyLog = React.createClass({
 	render: function(){
 		return (
 			<div className="log">
-				<h3>Key Log</h3>
+				<h4>Key Log ({this.props.keys.length})</h4>
 				{
 					this.props.keys.length > 0 ?
 					this.props.keys.map(function(val, index, arr){
-						return <LogItem key={index} text={val} />
+						return <LogItem key={index} text={val} css={val+'-color item'} />
 					}) :
-					null
+					<div><small>Nothing to log</small></div>
 				}
 			</div>
 		);
@@ -130,7 +141,7 @@ var KeyLog = React.createClass({
 var LogItem = React.createClass({
 	render: function(){
 		return (
-			<div className="item">
+			<div className={this.props.css}>
 				{this.props.text}
 			</div>
 		);
@@ -185,9 +196,12 @@ var Autoplay = React.createClass({
 	render: function(){
 		return (
 			<div className="autoplay">
-				<form onSubmit={this.play}>
-					<input type="text" className="key-input" placeholder="Enter keys to play" />
-					<div className="" onClick={this.play}>Play</div>
+				<h4>Autoplay</h4>
+				<form onSubmit={this.play} className="form-inline">
+					<div className="input-group">
+						<input type="text" className="key-input form-control" placeholder="Enter keys to play" />
+						<div className="play-btn input-group-addon" onClick={this.play}>Play</div>
+					</div>
 				</form>
 			</div>
 		);

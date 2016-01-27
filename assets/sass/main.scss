@@ -7,10 +7,16 @@ body{
 	background: #eee;
 }
 
-.piano, .piano:before, .piano:after{
+.piano{
 	clear: both;
 	display: table;
-	margin: 0 auto 20px;
+	margin: 30px auto 40px;
+
+	&:before, &:after{
+		clear: both;
+		display: table;
+		content: "";
+	}
 }
 
 .piano{
@@ -71,10 +77,64 @@ body{
 }
 
 .log{
-	border: thin solid green;
+	h4{
+		padding: 0 0 5px 0;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.item{
+		background: #fff;
+		width: 80px;
+		border-left: 4px solid black;
+		margin: 0 0 5px 0;
+		box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.4);
+		padding: 0 0 0 12px;
+		border-radius: 0 1px 1px 0;
+
+		&.c-color{
+			border-left: 4px solid red;
+		}
+
+		&.d-color{
+			border-left: 4px solid blue;
+		}
+
+		&.e-color{
+			border-left: 4px solid green;
+		}
+
+		&.f-color{
+			border-left: 4px solid gray;
+		}
+
+		&.g-color{
+			border-left: 4px solid yellow;
+		}
+
+		&.a-color{
+			border-left: 4px solid orange;
+		}
+
+		&.b-color{
+			border-left: 4px solid purple;
+		}
+	}
 }
 
 .autoplay{
-	border: thin solid blue;
+	h4{
+		padding: 0 0 5px 0;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.play-btn.input-group-addon{
+		cursor: pointer;
+		background: $blackkeyColor;
+		color: #fff;
+	}
+}
+
+.container-fluid .col-xs-10:last-child{
+	margin-top: 20px;
 }
 

@@ -5821,10 +5821,14 @@ button.close {
 body {
   background: #eee; }
 
-.piano, .piano:before, .piano:after {
+.piano {
   clear: both;
   display: table;
-  margin: 0 auto 20px; }
+  margin: 30px auto 40px; }
+  .piano:before, .piano:after {
+    clear: both;
+    display: table;
+    content: ""; }
 
 .piano {
   position: relative; }
@@ -5864,8 +5868,41 @@ body {
     .piano .black-keys.ab-key {
       left: 282px; }
 
-.log {
-  border: thin solid green; }
+.log h4 {
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid #ddd; }
 
-.autoplay {
-  border: thin solid blue; }
+.log .item {
+  background: #fff;
+  width: 80px;
+  border-left: 4px solid black;
+  margin: 0 0 5px 0;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  padding: 0 0 0 12px;
+  border-radius: 0 1px 1px 0; }
+  .log .item.c-color {
+    border-left: 4px solid red; }
+  .log .item.d-color {
+    border-left: 4px solid blue; }
+  .log .item.e-color {
+    border-left: 4px solid green; }
+  .log .item.f-color {
+    border-left: 4px solid gray; }
+  .log .item.g-color {
+    border-left: 4px solid yellow; }
+  .log .item.a-color {
+    border-left: 4px solid orange; }
+  .log .item.b-color {
+    border-left: 4px solid purple; }
+
+.autoplay h4 {
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid #ddd; }
+
+.autoplay .play-btn.input-group-addon {
+  cursor: pointer;
+  background: #262626;
+  color: #fff; }
+
+.container-fluid .col-xs-10:last-child {
+  margin-top: 20px; }
