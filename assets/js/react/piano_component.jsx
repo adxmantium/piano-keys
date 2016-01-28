@@ -140,8 +140,14 @@ var Piano = React.createClass({
 
 var White_Key = React.createClass({
 	clicked: function(e){
-		var val = $(e.target).text();
-		this.props.keyPressed( new Array(val), true );
+		var elem = $(e.target);
+
+		elem.addClass('active');
+		this.props.keyPressed( new Array(elem.text()), true );
+
+		elem.delay(500).queue(function(){
+			$(this).removeClass('active').dequeue();
+		});
 	},
 
 	render: function(){
