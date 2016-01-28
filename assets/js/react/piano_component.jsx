@@ -90,7 +90,7 @@ var App_Component = React.createClass({
 
 				<h1 className="text-center">Piano<small>Keys</small></h1>
 
-				<Piano keyPressed={this.keyPressed} autoplay={this.autoplay} />
+				<Piano keyPressed={this.keyPressed} />
 
 				<div className="container-fluid">
 					<div className="row">
@@ -121,13 +121,13 @@ var Piano = React.createClass({
 	render: function(){
 		return (
 			<div className="piano">
-				<White_Key css={'key c-key text-center'} text={'C'} autoplay={this.props.autoplay} />
-				<White_Key css={'key d-key text-center'} text={'D'} autoplay={this.props.autoplay} />
-				<White_Key css={'key e-key text-center'} text={'E'} autoplay={this.props.autoplay} />
-				<White_Key css={'key f-key text-center'} text={'F'} autoplay={this.props.autoplay} />
-				<White_Key css={'key g-key text-center'} text={'G'} autoplay={this.props.autoplay} />
-				<White_Key css={'key a-key text-center'} text={'A'} autoplay={this.props.autoplay} />
-				<White_Key css={'key b-key text-center'} text={'B'} autoplay={this.props.autoplay} />
+				<White_Key css={'key c-key text-center'} text={'C'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key d-key text-center'} text={'D'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key e-key text-center'} text={'E'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key f-key text-center'} text={'F'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key g-key text-center'} text={'G'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key a-key text-center'} text={'A'} keyPressed={this.props.keyPressed} />
+				<White_Key css={'key b-key text-center'} text={'B'} keyPressed={this.props.keyPressed} />
 				<Black_Key css={'black-keys cd-key'} />
 				<Black_Key css={'black-keys de-key'} />
 				<Black_Key css={'black-keys fg-key'} />
@@ -141,7 +141,7 @@ var Piano = React.createClass({
 var White_Key = React.createClass({
 	clicked: function(e){
 		var val = $(e.target).text();
-		this.props.autoplay( new Array(val), true );
+		this.props.keyPressed( new Array(val), true );
 	},
 
 	render: function(){
