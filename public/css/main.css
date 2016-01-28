@@ -5817,3 +5817,93 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+body {
+  background: #eee; }
+
+.piano {
+  clear: both;
+  display: table;
+  margin: 30px auto 40px; }
+  .piano:before, .piano:after {
+    clear: both;
+    display: table;
+    content: ""; }
+
+.piano {
+  position: relative; }
+  .piano .key {
+    float: left;
+    width: 50px;
+    height: 200px;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 150px 0 0;
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.5);
+    margin: 0 1px 0 0;
+    border-radius: 0 0 3px 3px; }
+    .piano .key.active {
+      box-shadow: inset 0px -5px 6px 2px rgba(0, 0, 0, 0.3);
+      transition: all 1s linear; }
+  .piano .black-keys {
+    background-color: #262626;
+    width: 34px;
+    height: 125px;
+    position: absolute;
+    top: 0;
+    border-radius: 0 0 3px 3px;
+    box-shadow: inset 0px -8px 1px 9px black; }
+    .piano .black-keys:active {
+      box-shadow: inset 0px -5px 1px 5px black; }
+    .piano .black-keys.cd-key {
+      left: 32px; }
+    .piano .black-keys.de-key {
+      left: 84px; }
+    .piano .black-keys.fg-key {
+      left: 186px; }
+    .piano .black-keys.ga-key {
+      left: 237px; }
+    .piano .black-keys.ab-key {
+      left: 287px; }
+
+.log h4 {
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid #bfbfbf; }
+  .log h4 small {
+    cursor: pointer; }
+    .log h4 small:hover {
+      color: #337ab7; }
+
+.log .item {
+  background: #fff;
+  width: 80px;
+  border-left: 4px solid #262626;
+  margin: 0 0 5px 0;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  padding: 0 0 0 12px;
+  border-radius: 0 1px 1px 0;
+  cursor: pointer; }
+
+.autoplay h4 {
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid #bfbfbf; }
+
+.autoplay .play-btn.input-group-addon {
+  cursor: pointer;
+  background: #262626;
+  color: #fff; }
+
+.autoplay .error-msg {
+  color: #a94442;
+  display: none; }
+
+.autoplay .now-playing {
+  display: none; }
+
+.container-fluid .col-xs-10:last-child {
+  margin-top: 20px; }
+
+.copyright {
+  margin: 80px 0 0; }

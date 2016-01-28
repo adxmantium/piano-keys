@@ -1,2 +1,136 @@
 /* main.scss */
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$blackkeyColor: #262626;
+$border: #bfbfbf;
+$error: #a94442;
+$hover: #337ab7;
+
+body{
+	background: #eee;
+}
+
+.piano{
+	clear: both;
+	display: table;
+	margin: 30px auto 40px;
+
+	&:before, &:after{
+		clear: both;
+		display: table;
+		content: "";
+	}
+}
+
+.piano{
+	position: relative;
+
+	.key{
+		float: left;
+		width: 50px;
+		height: 200px;
+		font-size: 30px;
+		font-weight: 600;
+		padding: 150px 0 0;
+		background-color: #fff;
+		cursor: pointer;
+		box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.5);
+		margin: 0 1px 0 0;
+		border-radius: 0 0 3px 3px;
+
+		&.active{
+			box-shadow: inset 0px -5px 6px 2px rgba(0,0,0,0.3);
+			transition: all 1s linear;
+		}
+	}
+
+	.black-keys{
+		background-color: $blackkeyColor;
+		width: 34px;
+		height: 125px;
+		position: absolute;
+		top: 0;
+		border-radius: 0 0 3px 3px;
+		box-shadow: inset 0px -8px 1px 9px rgba(0,0,0,1);
+
+		&:active{
+			box-shadow: inset 0px -5px 1px 5px rgba(0,0,0,1);
+		}
+
+		&.cd-key{
+			left: 32px;
+		}
+
+		&.de-key{
+			left: 84px;
+		}
+
+		&.fg-key{
+			left: 186px;
+		}
+
+		&.ga-key{
+			left: 237px;
+		}
+
+		&.ab-key{
+			left: 287px;
+		}
+	}
+}
+
+.log{
+	h4{
+		padding: 0 0 5px 0;
+		border-bottom: 1px solid $border;
+
+		small{
+			cursor: pointer;
+
+			&:hover{
+				color: $hover;
+			}
+		}
+	}
+
+	.item{
+		background: #fff;
+		width: 80px;
+		border-left: 4px solid $blackkeyColor;
+		margin: 0 0 5px 0;
+		box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.4);
+		padding: 0 0 0 12px;
+		border-radius: 0 1px 1px 0;
+		cursor: pointer;
+	}
+}
+
+.autoplay{
+	h4{
+		padding: 0 0 5px 0;
+		border-bottom: 1px solid $border;
+	}
+
+	.play-btn.input-group-addon{
+		cursor: pointer;
+		background: $blackkeyColor;
+		color: #fff;
+	}
+
+	.error-msg{
+		color: $error;
+		display: none;
+	}
+
+	.now-playing{
+		display: none;
+	}
+}
+
+.container-fluid .col-xs-10:last-child{
+	margin-top: 20px;
+}
+
+.copyright{
+	margin: 80px 0 0;
+}

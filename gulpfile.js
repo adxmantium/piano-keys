@@ -6,15 +6,17 @@ var jshint = require('gulp-jshint'),
 	sass = require('gulp-sass'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	rename = require('rename');
 	babel = require('gulp-babel'),
     react = require('gulp-react');
 
 // Lint Task
-// gulp.task('lint', function() {
-//     return gulp.src('js/*.js')
-//         .pipe(jshint())
-//         .pipe(jshint.reporter('default'));
-// });
+gulp.task('lint', function() {
+    return gulp.src('public/js/piano_component.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
 gulp.task('copy', function(){
 	gulp.src([
 	    'node_modules/react/dist/react-with-addons.min.js',
@@ -52,14 +54,15 @@ gulp.task('jsx', function () {
 });
 
 // Concatenate & Minify JS
-// gulp.task('scripts', function() {
-//     return gulp.src('js/*.js')
-//         .pipe(concat('all.js'))
-//         .pipe(gulp.dest('dist'))
-//         .pipe(rename('all.min.js'))
-//         .pipe(uglify())
-//         .pipe(gulp.dest('dist'));
-// });
+gulp.task('uglify-js', function() {
+    return gulp.src([
+    			'public/js/libraries.min.js',
+    			'public/js/piano_component.js'
+    		])
+        .pipe(concat('all.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('public/js'));
+});
 
 // Watch Files For Changes
 // gulp.task('watch', function() {
@@ -69,4 +72,4 @@ gulp.task('jsx', function () {
 
 // Default Task
 // gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
-gulp.task('default', ['sass', 'jsx']);
+gulp.task('default', ['sass']);
