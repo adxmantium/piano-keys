@@ -37,17 +37,23 @@ var App_Component = React.createClass({displayName: "App_Component",
 		};
 	},
 
-	keyPressed: function(key){
-		this.addToLog(key);
+	keyPressed: function(key, shouldLog){
+		if( shouldLog ){
+			this.addToLog(key);
+		}
 	},
 
 	addToLog: function(key){
-		console.log(this.state.keyLog);
 		this.state.keyLog.push(key);
 		this.setState({keyLog: this.state.keyLog});
 	},
 
-	autoplay: function(string_of_keys){
+	clearLog: function(){
+		this.state.keyLog.length = 0;
+		this.setState({keyLog: this.state.keyLog});
+	},
+
+	autoplay: function(string_of_keys, should_log){
 		var active_elem, loop, i = 0, _this = this;
 
 		loop = setInterval(function(){
@@ -61,7 +67,7 @@ var App_Component = React.createClass({displayName: "App_Component",
 			if( i < string_of_keys.length ){
 				elem = $('.'+string_of_keys[i]+'-key');
 				elem.addClass('active');
-				_this.keyPressed( string_of_keys[i].toUpperCase() );
+				_this.keyPressed( string_of_keys[i].toUpperCase(), should_log );
 				i++;
 			}else{
 				clearInterval(loop);
@@ -84,7 +90,7 @@ var App_Component = React.createClass({displayName: "App_Component",
 
 				React.createElement("h1", {className: "text-center"}, "Piano", React.createElement("small", null, "Keys")), 
 
-				React.createElement(Piano, {keyPressed: this.keyPressed}), 
+				React.createElement(Piano, {keyPressed: this.keyPressed, autoplay: this.autoplay}), 
 
 				React.createElement("div", {className: "container-fluid"}, 
 					React.createElement("div", {className: "row"}, 
@@ -93,7 +99,7 @@ var App_Component = React.createClass({displayName: "App_Component",
 						), 
 
 						React.createElement("div", {className: "col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0 col-md-4 col-lg-3"}, 
-							React.createElement(KeyLog, {keys: this.state.keyLog})
+							React.createElement(KeyLog, {keys: this.state.keyLog, clearLog: this.clearLog, autoplay: this.autoplay})
 						), 
 
 						React.createElement("div", {className: "clearfix"})
@@ -115,13 +121,13 @@ var Piano = React.createClass({displayName: "Piano",
 	render: function(){
 		return (
 			React.createElement("div", {className: "piano"}, 
-				React.createElement(White_Key, {css: 'key c-key text-center', text: 'C', keyPressed: this.props.keyPressed}), 
-				React.createElement(White_Key, {css: 'key d-key text-center', text: 'D', keyPressed: this.props.keyPressed}), 
-				React.createElement(White_Key, {css: 'key e-key text-center', text: 'E', keyPressed: this.props.keyPressed}), 
-				React.createElement(White_Key, {css: 'key f-key text-center', text: 'F', keyPressed: this.props.keyPressed}), 
-				React.createElement(White_Key, {css: 'key g-key text-center', text: 'G', keyPressed: this.props.keyPressed}), 
-				React.createElement(White_Key, {css: 'key a-key text-center', text: 'A', keyPressed: this.props.keyPressed}), 
-				React.createElement(White_Key, {css: 'key b-key text-center', text: 'B', keyPressed: this.props.keyPressed}), 
+				React.createElement(White_Key, {css: 'key c-key text-center', text: 'C', autoplay: this.props.autoplay}), 
+				React.createElement(White_Key, {css: 'key d-key text-center', text: 'D', autoplay: this.props.autoplay}), 
+				React.createElement(White_Key, {css: 'key e-key text-center', text: 'E', autoplay: this.props.autoplay}), 
+				React.createElement(White_Key, {css: 'key f-key text-center', text: 'F', autoplay: this.props.autoplay}), 
+				React.createElement(White_Key, {css: 'key g-key text-center', text: 'G', autoplay: this.props.autoplay}), 
+				React.createElement(White_Key, {css: 'key a-key text-center', text: 'A', autoplay: this.props.autoplay}), 
+				React.createElement(White_Key, {css: 'key b-key text-center', text: 'B', autoplay: this.props.autoplay}), 
 				React.createElement(Black_Key, {css: 'black-keys cd-key'}), 
 				React.createElement(Black_Key, {css: 'black-keys de-key'}), 
 				React.createElement(Black_Key, {css: 'black-keys fg-key'}), 
@@ -133,13 +139,14 @@ var Piano = React.createClass({displayName: "Piano",
 });
 
 var White_Key = React.createClass({displayName: "White_Key",
-	setActive: function(e){
-		this.props.keyPressed( $(e.target).text() );
+	clicked: function(e){
+		var val = $(e.target).text();
+		this.props.autoplay( new Array(val), true );
 	},
 
 	render: function(){
 		return (
-			React.createElement("div", {className: this.props.css, onClick: this.setActive}, 
+			React.createElement("div", {className: this.props.css, onClick: this.clicked}, 
 				this.props.text
 			)
 		);
@@ -158,13 +165,14 @@ var Black_Key = React.createClass({displayName: "Black_Key",
 // ----- Log and log item components
 var KeyLog = React.createClass({displayName: "KeyLog",
 	render: function(){
+		var _this = this;
 		return (
 			React.createElement("div", {className: "log"}, 
-				React.createElement("h4", null, "Key Log (", this.props.keys.length, ")"), 
+				React.createElement("h4", null, "Key Log (", this.props.keys.length, ") ", React.createElement("small", {onClick: this.props.clearLog}, "clear")), 
 				
 					this.props.keys.length > 0 ?
 					this.props.keys.map(function(val, index, arr){
-						return React.createElement(LogItem, {key: index, text: val, css: val+'-color item'})
+						return React.createElement(LogItem, {key: index, text: val, css: val+'-color item', autoplay: _this.props.autoplay})
 					}) :
 					React.createElement("div", null, React.createElement("small", null, "Nothing to log"))
 				
@@ -174,9 +182,14 @@ var KeyLog = React.createClass({displayName: "KeyLog",
 });
 
 var LogItem = React.createClass({displayName: "LogItem",
+	clicked: function(e){
+		var key = $(e.target).text();
+		this.props.autoplay( new Array(key), false );
+	},
+
 	render: function(){
 		return (
-			React.createElement("div", {className: this.props.css}, 
+			React.createElement("div", {className: this.props.css, onClick: this.clicked}, 
 				this.props.text
 			)
 		);
@@ -200,7 +213,7 @@ var Autoplay = React.createClass({displayName: "Autoplay",
 			$('.key-input').val('').prop('disabled', true);
 			$('.now-playing').show();
 			val = val.split(',');
-			this.props.autoplay( val );
+			this.props.autoplay( val, true );
 		}
 	},
 
@@ -246,7 +259,7 @@ var Autoplay = React.createClass({displayName: "Autoplay",
 	},
 
 	render: function(){
-		var directions = 'enter a string of valid piano keys, delimited by a comma, and we will play that string for you.';
+		var directions = 'Enter a string of valid piano keys, delimited by a comma, and we will play those keys for you.';
 		return (
 			React.createElement("div", {className: "autoplay"}, 
 				React.createElement("h4", null, "Autoplay"), 
