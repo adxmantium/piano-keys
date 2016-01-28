@@ -1,34 +1,6 @@
 // React - piano_component.jsx
 
 
-
-var pianokeys = pianokeys || {};
-
-pianokeys = (function(){
-
-	var save_state, get_state, clear_state;
-
-	save_state = function(key, val){
-		localStorage.setItem(key, JSON.stringify(val));
-	};
-
-	get_state = function(key){
-		var val = localStorage.getItem(key);
-		return value && JSON.parse(value);
-	};
-
-	clear_state = function(){
-		localStorage.clear();
-	};
-
-	return {
-		save: save_state,
-		get: get_state
-	};
-})();
-
-
-
 // ----- top level app component
 var App_Component = React.createClass({displayName: "App_Component",
 	getInitialState: function(){
@@ -37,22 +9,26 @@ var App_Component = React.createClass({displayName: "App_Component",
 		};
 	},
 
+	//is triggered when key gets pressed/clicked
 	keyPressed: function(key, shouldLog){
 		if( shouldLog ){
 			this.addToLog(key);
 		}
 	},
 
+	//adds key name to log
 	addToLog: function(key){
 		this.state.keyLog.push(key);
 		this.setState({keyLog: this.state.keyLog});
 	},
 
+	//clears log
 	clearLog: function(){
 		this.state.keyLog.length = 0;
 		this.setState({keyLog: this.state.keyLog});
 	},
 
+	//pass and array of valid keys name and will loop through each index applying key-highlighting class
 	autoplay: function(string_of_keys, should_log){
 		var active_elem, loop, i = 0, _this = this;
 
@@ -79,8 +55,9 @@ var App_Component = React.createClass({displayName: "App_Component",
 		}, 1000);
 	},
 
+	//grab input and message and restore to default
 	donePlaying: function(){
-		$('.key-input').prop('disabled', false)
+		$('.key-input').prop('disabled', false);
 		$('.now-playing').hide();
 	},
 
@@ -142,9 +119,11 @@ var White_Key = React.createClass({displayName: "White_Key",
 	clicked: function(e){
 		var elem = $(e.target);
 
+		//make target key active and trigger keyPressed to add to log
 		elem.addClass('active');
 		this.props.keyPressed( new Array(elem.text()), true );
 
+		//delay for half a second before removing active class
 		elem.delay(500).queue(function(){
 			$(this).removeClass('active').dequeue();
 		});
@@ -178,7 +157,7 @@ var KeyLog = React.createClass({displayName: "KeyLog",
 				
 					this.props.keys.length > 0 ?
 					this.props.keys.map(function(val, index, arr){
-						return React.createElement(LogItem, {key: index, text: val, css: val+'-color item', autoplay: _this.props.autoplay})
+						return React.createElement(LogItem, {key: index, text: val, css: val+'-color item', autoplay: _this.props.autoplay});
 					}) :
 					React.createElement("div", null, React.createElement("small", null, "Nothing to log"))
 				
@@ -188,6 +167,7 @@ var KeyLog = React.createClass({displayName: "KeyLog",
 });
 
 var LogItem = React.createClass({displayName: "LogItem",
+	//make key active by using autoplay, but no need to add to log
 	clicked: function(e){
 		var key = $(e.target).text();
 		this.props.autoplay( new Array(key), false );
@@ -212,24 +192,29 @@ var Autoplay = React.createClass({displayName: "Autoplay",
 
 		e.preventDefault();
 
-		val = $('.key-input').val();
-		is_valid = this.validate( val );
+		//if key-input is disabled and now-playing message is visible, then don't do anything on click
+		if( !$('.now-playing').is(':visible') ){
+			val = $('.key-input').val();
+			is_valid = this.validate( val );
 
-		if( is_valid ){
-			$('.key-input').val('').prop('disabled', true);
-			$('.now-playing').show();
-			val = val.split(',');
-			this.props.autoplay( val, true );
-		}
+			//if inputs are valid, then proceed with autoplaying keys
+			if( is_valid ){
+				$('.key-input').val('').prop('disabled', true);
+				$('.now-playing').show();
+				val = val.split(',');
+				this.props.autoplay( val, true );
+			}
+		}		
 	},
 
+	//validate input - returns true or false
 	validate: function(val){
 		var valid_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g'], 
 			match = false, valid = true, submitted;
 
 		submitted = val.split(',');
 
-		//loop through each index of the submitted string
+		//loop through each index of the submitted string that has been converted to an array
 		for( var i = 0; i < submitted.length; i++ ){
 
 			//check length of each index
@@ -285,5 +270,5 @@ var Autoplay = React.createClass({displayName: "Autoplay",
 // ----- Autoplay component
 
 
-
+// Render components to DOM
 ReactDOM.render( React.createElement(App_Component, null), document.getElementById('main-container') );
